@@ -95,11 +95,11 @@ startParams <- function(parameters,
     fr.res <- cbind(fr, resid)
     ranForm <- no_specials(findbars_x(RHSForm(formula)))
     nrr <- length(namBlk)
-    rrTrm <- lapply(1:length(namBlk), function(x) as.character(ranForm[ranForm == namBlk][[x]]))
-    x <- sapply(1:nrr, function(x) paste(rrTrm[[x]][2], rrTrm[[x]][1], rrTrm[[x]][3]))
+    rrTrm <- lapply(1:length(namBlk), function(x) as.character(ranForm[ranForm == namBlk[[x]]]))
+    # x <- sapply(1:nrr, function(x) paste(rrTrm[[x]][2], rrTrm[[x]][1], rrTrm[[x]][3]))
     resForm <- formula(paste("resid ~ 0 "))
     for(i in 1:nrr){
-      rrForm <- formula(paste("~ rr(", x[i], ",", nlv[i], ")"))
+      rrForm <- formula(paste("~ rr(", rrTrm[[i]], ",", nlv[i], ")"))
       resForm <- addForm(resForm, rrForm)
     }
     # residual model; assuming gaussian and fixing sd to 1
